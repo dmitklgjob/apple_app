@@ -1,0 +1,67 @@
+version: '3.2'
+
+services:
+  nginx:
+    build:
+      context: ./docker/development/nginx
+    volumes:
+      - .:/app:delegated
+    ports:
+      - "80:80"
+    depends_on:
+      - php-fpm
+    networks:
+      main:
+        aliases:
+          - frontend.apple.loc
+          - backend.apple.loc
+
+  postgres:
+    image: postgres:14
+    volumes:
+      - postgres-data:/var/lib/postgresql/data:delegated
+      - ./docker/development/postgres/db:/docker-entrypoint-initdb.d:cached
+    environment:
+      POSTGRES_USER: apple
+      POSTGRES_PASSWORD: apple
+      POSTGRES_MULTIPLE_DATABASES: apple_dev,apple_test
+      TZ: Europe/Moscow
+    ports:
+      - "5732:5432"
+    networks:
+      main:
+
+  php-fpm:
+    build:
+      context: ./docker/development/php-fpm
+    volumes:
+      - .:/app:delegated
+      - composer:/root/.composer/cache:cached
+    depends_on:
+      - postgres
+    networks:
+      main:
+
+  php-cli:
+    build:
+      context: ./docker/development/php-cli
+    volumes:
+      - .:/app:delegated
+      - composer:/root/.composer
+      - composer-cache:/root/.composer/cache:cached
+    environment:
+      XDEBUG_MODE: "develop"
+    depends_on:
+      - postgres
+    tty: true
+    stdin_open: true
+    networks:
+      main:
+
+volumes:
+  postgres-data:
+  composer:
+  composer-cache:
+
+networks:
+  main:
