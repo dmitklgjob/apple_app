@@ -1,5 +1,6 @@
 <?php
 return [
+    'name'=>'Apple application',
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
         '@npm'   => '@vendor/npm-asset',
