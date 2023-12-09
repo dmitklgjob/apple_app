@@ -27,6 +27,6 @@ make down
 </p>
 <p>
     <a href="http://backend.apple.loc/gii" target="_blank">
-        http://backend.apple.loc/ - gii
+        http://backend.apple.loc/gii - gii
     </a>
 </p>

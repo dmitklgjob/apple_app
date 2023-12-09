@@ -10,7 +10,10 @@ return [
     'id' => 'app-backend',
     'basePath' => dirname(__DIR__),
     'controllerNamespace' => 'backend\controllers',
-    'bootstrap' => ['log'],
+    'bootstrap' => [
+        'log',
+        Apple\Infrastructure\Bootstrap::class,
+    ],
     'modules' => [],
     'components' => [
         'request' => [
@@ -46,4 +49,5 @@ return [
 
     ],
     'params' => $params,
+    'defaultRoute' => 'apple',
 ];

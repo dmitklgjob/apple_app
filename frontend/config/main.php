@@ -14,7 +14,6 @@ return [
     'basePath' => dirname(__DIR__),
     'bootstrap' => [
         'log',
-        Apple\Infrastructure\Bootstrap::class,
     ],
     'controllerNamespace' => 'frontend\controllers',
     'components' => [
@@ -50,5 +49,4 @@ return [
         ],
     ],
     'params' => $params,
-    'defaultRoute' => 'apple',
 ];

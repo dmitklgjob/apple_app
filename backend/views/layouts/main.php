@@ -59,7 +59,9 @@ $this->title = 'Apple app';
         <?= Breadcrumbs::widget([
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
         ]) ?>
-        <?= Alert::widget() ?>
+        <?= Alert::widget([
+            'options' => ['class' => 'position-absolute top-10 ', 'z-index' => 9999, 'style' =>'right:10px']
+        ]) ?>
         <?= $content ?>
     </div>
 </main>

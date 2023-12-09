@@ -1,5 +1,6 @@
 <?php
 return [
+    'language' => 'ru-RU',
     'name'=>'Apple application',
     'aliases' => [
         '@bower' => '@vendor/bower-asset',

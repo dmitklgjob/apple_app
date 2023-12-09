@@ -20,6 +20,15 @@ enum AppleColor: int
         };
     }
 
+    public function image(): string
+    {
+        return match ($this) {
+            self::GREEN => 'green.png',
+            self::RED => 'red.png',
+            self::YELLOW => 'yellow.png',
+        };
+    }
+
     public static function values(): array
     {
         return [

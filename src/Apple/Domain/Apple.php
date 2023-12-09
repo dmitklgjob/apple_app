@@ -7,6 +7,8 @@ namespace Apple\Domain;
 use Apple\Domain\enum\AppleColor;
 use Apple\Domain\enum\AppleStatus;
 use DateTimeImmutable;
+use DomainException;
+use Exception;
 use yii\db\ActiveRecord;
 
 /**
@@ -16,7 +18,7 @@ use yii\db\ActiveRecord;
  * @property string|null $fell_at
  * @property int $status
  * @property int $color
- * @property int|null $rest_percent
+ * @property int $rest_percent
  */
 class Apple extends ActiveRecord
 {
@@ -46,6 +48,7 @@ class Apple extends ActiveRecord
             'fell_at' => 'Дата и время падения',
             'status' => 'Статус',
             'rest_percent' => 'Процент не съеденного яблока',
+            'color' => 'Цвет',
         ];
     }
 
@@ -74,5 +77,36 @@ class Apple extends ActiveRecord
     public function getColor(): AppleColor
     {
         return AppleColor::from($this->color);
+    }
+
+    public function setStatus(AppleStatus $status): void
+    {
+        $this->status = $status->value;
+    }
+
+    public function setFellAt(DateTimeImmutable $fellAt): void
+    {
+        $this->fell_at = $fellAt->format('Y-m-d H:i:s');
+    }
+
+    public function getRestPercent(): int
+    {
+        return $this->rest_percent;
+    }
+
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function bite(int $percent): void
+    {
+        $this->getStatus()->checkFell();
+
+        if ($percent > $this->getRestPercent()) {
+            throw new DomainException(sprintf('Вы пытаетесь откусить слишком много. Максимум: %s%%', $this->getRestPercent()));
+        }
+
+        $this->rest_percent -= $percent;
     }
 }
