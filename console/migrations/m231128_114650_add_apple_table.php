@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use common\models\enum\enum\AppleStatus;
+use Apple\Domain\enum\AppleStatus;
 use yii\db\Migration;
 
 final class m231128_114650_add_apple_table extends Migration
