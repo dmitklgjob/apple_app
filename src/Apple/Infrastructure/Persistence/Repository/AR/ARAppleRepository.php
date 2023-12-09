@@ -81,7 +81,8 @@ final class ARAppleRepository implements AppleRepositoryInterface
             [
                 'and',
                 ['status' => AppleStatus::FELL->value],
-                new Expression("fell_at + INTERVAL '$rottenInterval hours' <= NOW()"),
+                ['rest_percent' => 100],
+                new Expression("fell_at + INTERVAL '$rottenInterval hours' <= NOW()")
             ],
         );
 
